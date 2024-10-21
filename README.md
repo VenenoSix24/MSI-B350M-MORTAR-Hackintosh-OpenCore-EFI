@@ -2,7 +2,7 @@
 
 ## 介绍
 
-[![Static Badge](https://img.shields.io/badge/OpenCore-1.0.2-blue)](https://github.com/acidanthera/OpenCorePkg/releases)[![Static Badge](https://img.shields.io/badge/macOS-15-red)](https://www.apple.com.cn/macos/macos-sequoia/)
+[![Static Badge](https://img.shields.io/badge/OpenCore-1.0.2-blue)](https://github.com/acidanthera/OpenCorePkg/releases) [![Static Badge](https://img.shields.io/badge/macOS-15-red)](https://www.apple.com.cn/macos/macos-sequoia/)
 
 本 EFI 适用于 微星 B350M 迫击炮 主板用户，理论上采用 Ryzen 系 CPU 和 Navi 核心的 GPU 均可使用 ，其他配置根据实际情况稍微修改也可使用
 
