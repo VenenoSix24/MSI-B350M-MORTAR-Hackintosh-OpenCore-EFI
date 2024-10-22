@@ -2,7 +2,7 @@
 
 ## 介绍
 
-[![Static Badge](https://img.shields.io/badge/OpenCore-1.0.2-blue)](https://github.com/acidanthera/OpenCorePkg/releases) [![Static Badge](https://img.shields.io/badge/macOS-15-red)](https://www.apple.com.cn/macos/macos-sequoia/) ![GitHub last commit](https://img.shields.io/github/last-commit/VenenoSix24/MSI-B350M-MORTAR-Hackintosh-OpenCore1.0.2-EFI) ![GitHub License](https://img.shields.io/github/license/VenenoSix24/MSI-B350M-MORTAR-Hackintosh-OpenCore1.0.2-EFI) ![Static Badge](https://img.shields.io/badge/Find%20me-Blog-orange?link=blog.776624.xyz) 
+[![Static Badge](https://img.shields.io/badge/OpenCore-1.0.2-blue)](https://github.com/acidanthera/OpenCorePkg/releases) [![Static Badge](https://img.shields.io/badge/macOS-15-red)](https://www.apple.com.cn/macos/macos-sequoia/) ![GitHub last commit](https://img.shields.io/github/last-commit/VenenoSix24/MSI-B350M-MORTAR-Hackintosh-OpenCore1.0.2-EFI) ![GitHub License](https://img.shields.io/github/license/VenenoSix24/MSI-B350M-MORTAR-Hackintosh-OpenCore1.0.2-EFI) [![Static Badge](https://img.shields.io/badge/Find%20me-Blog-orange?link=blog.776624.xyz)](https://blog.776624.xyz/) 
 
 ### 前言
 
@@ -90,7 +90,7 @@
 
 ## 进阶教程
 
-### 睡眠
+### 1. 睡眠
 
 首先，测试你的 睡眠 功能是否正常。如果正常，你可以跳过阅读此部分。
 
@@ -98,7 +98,7 @@
 
 如果上述方法无效的话，请参考 [**这篇文章**](https://dortania.github.io/OpenCore-Post-Install/universal/sleep.html) 以修复睡眠。
 
-### 开启 HiDPi
+### 2. 开启 HiDPi
 
 使用 **[one-key-hidpi](https://github.com/xzhih/one-key-hidpi)** 项目即可。
 
@@ -116,7 +116,7 @@
 
 之后根据实际情况，输入数字选择分辨率重启即可。如未生效自行去设置更改带有 **HiDPi** 的分辨率
 
-### PAT 补丁
+### 3. PAT 补丁
 
 |       **Shaneee's**        |      **Algrey's**      |
 | :------------------------: | :--------------------: |
@@ -131,23 +131,23 @@
 
 不要同时开启两个 PAT 补丁，因为这样会不起作用。
 
-### 如何使用 .sh 文件
+### 4. 如何使用 .sh 文件
 
 后续两个步骤会用到 shell 命令文件，请参考 **[方法](https://www.jianshu.com/p/e777b6825df5)**
 
-### Adobe 修复
+### 5. Adobe 修复
 
 由于缺少 intel_fast_memset 指令，Adobe 应用程序在 AMD 黑苹果上不能正常使用。
 
 你可以运行 **[这个脚本](https://github.com/mikigal/ryzen-hackintosh/blob/master/Resources/adobe_patch.sh)** 来解决，重启系统以使之生效。 
 
-### MKL 补丁
+### 6. MKL 补丁
 
 有些 macOS 应用程序使用 MKL - 数学核心函数库。但它无法在 AMD CPU 上原生运行
 
 所以我们需要用 **[这个脚本](https://github.com/mikigal/ryzen-hackintosh/blob/master/Resources/ryzen_patch.sh)** 来修补它。
 
-### 修改 CPU 名称
+### 7. 修改 CPU 名称
 
 本 EFI 已添加名称修改参数，可直接修改，重启在 OpenCore 引导界面 `Reset NVRAM` 后生效。
 
