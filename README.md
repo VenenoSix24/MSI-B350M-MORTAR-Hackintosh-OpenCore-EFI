@@ -10,7 +10,9 @@
 
 ### 版本
 
-所使用的 OpenCore 版本为 `1.0.2` ，BIOS 版本为 `7A37v1O7` ，机型为 `MacPro7,1` ，最高支持 `macOS Sequoia 15` 
+OpenCore 版本为 `1.0.2` ，BIOS 版本为 `7A37v1O7` 
+
+机型为 `MacPro7,1` ，最高支持 `macOS Sequoia 15` 
 
 ### 关于本机
 
@@ -42,7 +44,7 @@
 |      **选项**      |    **状态**     |
 | :----------------: | :-------------: |
 |     SATA Mode      |    选择 AHCI    |
-| Above 4G Decoding  | 启用 / Enabled  |
+| Above 4G Decoding  | 禁用 / Disabled |
 | EHCI/XHCI Hand-off | 启用 / Enabled  |
 |        SVM         | 启用 / Enabled  |
 |        CSM         | 禁用 / Disabled |
@@ -50,7 +52,9 @@
 |    Serial Port     | 禁用 / Disabled |
 |   Parallel Port    | 禁用 / Disabled |
 
+如果开启 **Above 4G Decoding** ，**必须**把配置文件 `boot-args` 项中的 `npci=0x3000` 参数删除
 
+推荐主板选择关闭，使用 `npci=0x3000` 参数，二选一即可。
 
 ## 使用方法
 
