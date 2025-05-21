@@ -23,34 +23,34 @@ OpenCore 版本为 `1.0.2` ，BIOS 版本为 `7A37v1O7`
 |  硬件  | 型号                                   |
 | :----: | :------------------------------------- |
 |  主板  | 微星 B350M MORTAR                      |
-| 处理器 | AMD Ryzen™ 5 5600                     |
+| 处理器 | AMD Ryzen™ 5 5600                      |
 |  显卡  | AMD Radeon RX 6750 GRE 12GB （蓝宝石） |
 |  内存  | 玖合 星舞 32G 3200MHz DDR4             |
 |  硬盘  | 朗科 SSD NV3000 256G                   |
 
 ## 实现功能
 
-- [X] 声卡 (板载) / 网卡 (板载)
-- [X] 显卡正常驱动
-- [X] ~~USB 定制~~ (当前这版好像有点bug，过两天修复)
-- [X] ~~可睡眠 可唤醒~~ (同上)
-- [X] 硬解 4K H.264  HEVC
-- [X] AppStore iCloud 正常登陆
+- [x] 声卡 (板载) / 网卡 (板载)
+- [x] 显卡正常驱动
+- [x] ~~USB 定制~~ (当前这版好像有点 bug，过两天修复)
+- [x] ~~可睡眠 可唤醒~~ (同上)
+- [x] 硬解 4K H.264 HEVC
+- [x] AppStore iCloud 正常登陆
 - [ ] Apple Music / Apple TV
 - [ ] 与蓝牙 WIFI 有关的功能暂未测试 （板载无网卡）
 
 ## BIOS 设置
 
-|   **选项**   | **状态** |
+|      **选项**      |    **状态**     |
 | :----------------: | :-------------: |
-|     SATA Mode     |    选择 AHCI    |
-| Above 4G Decoding | 禁用 / Disabled |
-| EHCI/XHCI Hand-off | 启用 / Enabled |
-|        SVM        | 启用 / Enabled |
-|        CSM        | 禁用 / Disabled |
-|    Secure Boot    | 禁用 / Disabled |
-|    Serial Port    | 禁用 / Disabled |
-|   Parallel Port   | 禁用 / Disabled |
+|     SATA Mode      |    选择 AHCI    |
+| Above 4G Decoding  | 禁用 / Disabled |
+| EHCI/XHCI Hand-off | 启用 / Enabled  |
+|        SVM         | 启用 / Enabled  |
+|        CSM         | 禁用 / Disabled |
+|    Secure Boot     | 禁用 / Disabled |
+|    Serial Port     | 禁用 / Disabled |
+|   Parallel Port    | 禁用 / Disabled |
 
 如果开启 **Above 4G Decoding** ，**必须**把配置文件 `boot-args` 项中的 `npci=0x3000` 参数删除
 
@@ -58,7 +58,7 @@ OpenCore 版本为 `1.0.2` ，BIOS 版本为 `7A37v1O7`
 
 ## 使用方法
 
-详细过程参考 **OpenCore文档** ***[官方](https://dortania.github.io/OpenCore-Install-Guide/)***  ***[中文](https://sumingyd.github.io/OpenCore-Install-Guide/)*** / [**国光的黑苹果安装教程**](https://apple.sqlsec.com/) / **[精解OpenCore - 黑果小兵](https://blog.daliansky.net/OpenCore-BootLoader.html)**
+详细过程参考 **OpenCore 文档** **_[官方](https://dortania.github.io/OpenCore-Install-Guide/)_** **_[中文](https://sumingyd.github.io/OpenCore-Install-Guide/)_** / [**国光的黑苹果安装教程**](https://apple.sqlsec.com/) / **[精解 OpenCore - 黑果小兵](https://blog.daliansky.net/OpenCore-BootLoader.html)**
 
 1. 下载 EFI 文件
 2. 修改 BIOS 设置
@@ -72,21 +72,22 @@ OpenCore 版本为 `1.0.2` ，BIOS 版本为 `7A37v1O7`
        - B8 **00** 0000 0000 -> B8 **06** 0000 0000
        - BA **00** 0000 0000 -> BA **06** 0000 0000
        - BA **00** 0000 0090 -> BA **06** 0000 0090
-       - BA **00** 0000 00     -> BA **06** 0000 00
+       - BA **00** 0000 00 -> BA **06** 0000 00
 
    | **CPU 核心** | **十六进制值** |
-   | :----------------: | :------------------: |
-   |        4 核        |        `04`        |
-   |        6 核        |        `06`        |
-   |        8 核        |        `08`        |
-   |       12 核       |        `0C`        |
-   |       16 核       |        `10`        |
-   |       24 核       |        `18`        |
-   |       32 核       |        `20`        |
+   | :----------: | :------------: |
+   |     4 核     |      `04`      |
+   |     6 核     |      `06`      |
+   |     8 核     |      `08`      |
+   |    12 核     |      `0C`      |
+   |    16 核     |      `10`      |
+   |    24 核     |      `18`      |
+   |    32 核     |      `20`      |
 
    ii. 生成三码，并校验 序列号 在官网是否存在
 
-       使用[GenSMBIOS](https://github.com/corpnewt/GenSMBIOS) 工具生成三码
+   使用[GenSMBIOS](https://github.com/corpnewt/GenSMBIOS) 工具生成三码
+
 4. 按照正常流程继续引导即可
 
 ## 进阶教程
@@ -95,7 +96,7 @@ OpenCore 版本为 `1.0.2` ，BIOS 版本为 `7A37v1O7`
 
 首先，测试你的 睡眠 功能是否正常。如果正常，你可以跳过阅读此部分。
 
-如果你有睡眠问题，请定制你的USB端口，定制方法 [**参考这里**](https://apple.sqlsec.com/6-%E5%AE%9E%E7%94%A8%E5%A7%BF%E5%8A%BF/6-1/)。
+如果你有睡眠问题，请定制你的 USB 端口，定制方法 [**参考这里**](https://apple.sqlsec.com/6-%E5%AE%9E%E7%94%A8%E5%A7%BF%E5%8A%BF/6-1/)。
 
 如果上述方法无效的话，请参考 [**这篇文章**](https://dortania.github.io/OpenCore-Post-Install/universal/sleep.html) 以修复睡眠。
 
@@ -110,6 +111,7 @@ OpenCore 版本为 `1.0.2` ，BIOS 版本为 `7A37v1O7`
    ```
    sh -c "$(curl -fsSL https://raw.githubusercontent.com/xzhih/one-key-hidpi/master/hidpi.sh)"
    ```
+
 2. 本地文件
 
    克隆 / 下载 **[one-key-hidpi](https://github.com/xzhih/one-key-hidpi)** 项目文件到本地后，解压，双击打开 `hidpi.command`
@@ -118,10 +120,10 @@ OpenCore 版本为 `1.0.2` ，BIOS 版本为 `7A37v1O7`
 
 ### 3. PAT 补丁
 
-|    **Shaneee's**    |   **Algrey's**   |
+|       **Shaneee's**        |      **Algrey's**      |
 | :------------------------: | :--------------------: |
-|      更好的 GPU 性能      |    更差的 GPU 性能    |
-|  可能不适用于 NVIDIA GPU  |      兼容所有 GPU      |
+|      更好的 GPU 性能       |    更差的 GPU 性能     |
+|  可能不适用于 NVIDIA GPU   |      兼容所有 GPU      |
 | HDMI / DP 音频可能无法工作 | HDMI / DP 音频正常工作 |
 |          默认启用          |        默认禁用        |
 
@@ -157,7 +159,7 @@ OpenCore 版本为 `1.0.2` ，BIOS 版本为 `7A37v1O7`
 
 ## 预览
 
-![desktop.png](https://s2.loli.net/2024/10/22/egLoVsbrFHfuXan.jpg)
+![desktop.png](https://s2.loli.net/2025/05/21/peYUHnZcBdTbR7L.jpg)
 
 ## 所需资源
 
