@@ -2,7 +2,7 @@
 
 ## 介绍
 
-[![Static Badge](https://img.shields.io/badge/OpenCore-1.0.2-blue)](https://github.com/acidanthera/OpenCorePkg/releases) [![Static Badge](https://img.shields.io/badge/macOS-15-red)](https://www.apple.com.cn/macos/macos-sequoia/) ![GitHub last commit](https://img.shields.io/github/last-commit/VenenoSix24/MSI-B350M-MORTAR-Hackintosh-OpenCore1.0.2-EFI) ![GitHub License](https://img.shields.io/github/license/VenenoSix24/MSI-B350M-MORTAR-Hackintosh-OpenCore1.0.2-EFI) [![Static Badge](https://img.shields.io/badge/Find%20me-Blog-orange?link=blog.776624.xyz)](https://blog.776624.xyz/) 
+[![Static Badge](https://img.shields.io/badge/OpenCore-1.0.2-blue)](https://github.com/acidanthera/OpenCorePkg/releases) [![Static Badge](https://img.shields.io/badge/macOS-15-red)](https://www.apple.com.cn/macos/macos-sequoia/) ![GitHub last commit](https://img.shields.io/github/last-commit/VenenoSix24/MSI-B350M-MORTAR-Hackintosh-OpenCore1.0.2-EFI) ![GitHub License](https://img.shields.io/github/license/VenenoSix24/MSI-B350M-MORTAR-Hackintosh-OpenCore1.0.2-EFI) [![Static Badge](https://img.shields.io/badge/Find%20me-Blog-orange?link=blog.776624.xyz)](https://blog.776624.xyz/)
 
 ### 前言
 
@@ -10,9 +10,9 @@
 
 ### 版本
 
-OpenCore 版本为 `1.0.2` ，BIOS 版本为 `7A37v1O7` 
+OpenCore 版本为 `1.0.2` ，BIOS 版本为 `7A37v1O7`
 
-机型为 `MacPro7,1` ，最高支持 `macOS Sequoia 15` 
+机型为 `MacPro7,1` ，最高支持 `macOS Sequoia 15.4`
 
 ### 关于本机
 
@@ -23,34 +23,34 @@ OpenCore 版本为 `1.0.2` ，BIOS 版本为 `7A37v1O7`
 |  硬件  | 型号                                   |
 | :----: | :------------------------------------- |
 |  主板  | 微星 B350M MORTAR                      |
-| 处理器 | AMD Ryzen™ 5 5600                      |
+| 处理器 | AMD Ryzen™ 5 5600                     |
 |  显卡  | AMD Radeon RX 6750 GRE 12GB （蓝宝石） |
 |  内存  | 玖合 星舞 32G 3200MHz DDR4             |
 |  硬盘  | 朗科 SSD NV3000 256G                   |
 
 ## 实现功能
 
-- [x] 声卡 (板载) / 网卡 (板载)
-- [x] 显卡正常驱动
-- [x] USB 定制
-- [x] 可睡眠 可唤醒
-- [x] 硬解 4K H.264  HEVC
-- [x] AppStore iCloud 正常登陆
+- [X] 声卡 (板载) / 网卡 (板载)
+- [X] 显卡正常驱动
+- [X] ~~USB 定制~~ (当前这版好像有点bug，过两天修复)
+- [X] ~~可睡眠 可唤醒~~ (同上)
+- [X] 硬解 4K H.264  HEVC
+- [X] AppStore iCloud 正常登陆
 - [ ] Apple Music / Apple TV
 - [ ] 与蓝牙 WIFI 有关的功能暂未测试 （板载无网卡）
 
 ## BIOS 设置
 
-|      **选项**      |    **状态**     |
+|   **选项**   | **状态** |
 | :----------------: | :-------------: |
-|     SATA Mode      |    选择 AHCI    |
-| Above 4G Decoding  | 禁用 / Disabled |
-| EHCI/XHCI Hand-off | 启用 / Enabled  |
-|        SVM         | 启用 / Enabled  |
-|        CSM         | 禁用 / Disabled |
-|    Secure Boot     | 禁用 / Disabled |
-|    Serial Port     | 禁用 / Disabled |
-|   Parallel Port    | 禁用 / Disabled |
+|     SATA Mode     |    选择 AHCI    |
+| Above 4G Decoding | 禁用 / Disabled |
+| EHCI/XHCI Hand-off | 启用 / Enabled |
+|        SVM        | 启用 / Enabled |
+|        CSM        | 禁用 / Disabled |
+|    Secure Boot    | 禁用 / Disabled |
+|    Serial Port    | 禁用 / Disabled |
+|   Parallel Port   | 禁用 / Disabled |
 
 如果开启 **Above 4G Decoding** ，**必须**把配置文件 `boot-args` 项中的 `npci=0x3000` 参数删除
 
@@ -61,9 +61,7 @@ OpenCore 版本为 `1.0.2` ，BIOS 版本为 `7A37v1O7`
 详细过程参考 **OpenCore文档** ***[官方](https://dortania.github.io/OpenCore-Install-Guide/)***  ***[中文](https://sumingyd.github.io/OpenCore-Install-Guide/)*** / [**国光的黑苹果安装教程**](https://apple.sqlsec.com/) / **[精解OpenCore - 黑果小兵](https://blog.daliansky.net/OpenCore-BootLoader.html)**
 
 1. 下载 EFI 文件
-
 2. 修改 BIOS 设置
-
 3. 修改 `config.plist` 文件
 
    i. 修改 CPU 核心数
@@ -77,19 +75,18 @@ OpenCore 版本为 `1.0.2` ，BIOS 版本为 `7A37v1O7`
        - BA **00** 0000 00     -> BA **06** 0000 00
 
    | **CPU 核心** | **十六进制值** |
-   | :----------: | :------------: |
-   |     4 核     |      `04`      |
-   |     6 核     |      `06`      |
-   |     8 核     |      `08`      |
-   |    12 核     |      `0C`      |
-   |    16 核     |      `10`      |
-   |    24 核     |      `18`      |
-   |    32 核     |      `20`      |
+   | :----------------: | :------------------: |
+   |        4 核        |        `04`        |
+   |        6 核        |        `06`        |
+   |        8 核        |        `08`        |
+   |       12 核       |        `0C`        |
+   |       16 核       |        `10`        |
+   |       24 核       |        `18`        |
+   |       32 核       |        `20`        |
 
    ii. 生成三码，并校验 序列号 在官网是否存在
 
-   ​	使用 [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS) 工具生成三码
-
+       使用[GenSMBIOS](https://github.com/corpnewt/GenSMBIOS) 工具生成三码
 4. 按照正常流程继续引导即可
 
 ## 进阶教程
@@ -113,19 +110,18 @@ OpenCore 版本为 `1.0.2` ，BIOS 版本为 `7A37v1O7`
    ```
    sh -c "$(curl -fsSL https://raw.githubusercontent.com/xzhih/one-key-hidpi/master/hidpi.sh)"
    ```
-
 2. 本地文件
 
-   克隆 / 下载 **[one-key-hidpi](https://github.com/xzhih/one-key-hidpi)** 项目文件到本地后，解压，双击打开 `hidpi.command` 
+   克隆 / 下载 **[one-key-hidpi](https://github.com/xzhih/one-key-hidpi)** 项目文件到本地后，解压，双击打开 `hidpi.command`
 
 之后根据实际情况，输入数字选择分辨率重启即可。如未生效自行去设置更改带有 **HiDPi** 的分辨率
 
 ### 3. PAT 补丁
 
-|       **Shaneee's**        |      **Algrey's**      |
+|    **Shaneee's**    |   **Algrey's**   |
 | :------------------------: | :--------------------: |
-|      更好的 GPU 性能       |    更差的 GPU 性能     |
-|  可能不适用于 NVIDIA GPU   |      兼容所有 GPU      |
+|      更好的 GPU 性能      |    更差的 GPU 性能    |
+|  可能不适用于 NVIDIA GPU  |      兼容所有 GPU      |
 | HDMI / DP 音频可能无法工作 | HDMI / DP 音频正常工作 |
 |          默认启用          |        默认禁用        |
 
@@ -143,7 +139,7 @@ OpenCore 版本为 `1.0.2` ，BIOS 版本为 `7A37v1O7`
 
 由于缺少 intel_fast_memset 指令，Adobe 应用程序在 AMD 黑苹果上不能正常使用。
 
-你可以运行 **[这个脚本](https://github.com/mikigal/ryzen-hackintosh/blob/master/Resources/adobe_patch.sh)** 来解决，重启系统以使之生效。 
+你可以运行 **[这个脚本](https://github.com/mikigal/ryzen-hackintosh/blob/master/Resources/adobe_patch.sh)** 来解决，重启系统以使之生效。
 
 ### 6. MKL 补丁
 
@@ -155,7 +151,7 @@ OpenCore 版本为 `1.0.2` ，BIOS 版本为 `7A37v1O7`
 
 本 EFI 已添加名称修改参数，可直接修改，重启在 OpenCore 引导界面 `Reset NVRAM` 后生效。
 
-打开配置文件转到 `NVRAM -> 4D1FDA02-38C7-4A6A-9CC6-4BCCA8B30102 -> AMD Ryzen™ 5 5600` 
+打开配置文件转到 `NVRAM -> 4D1FDA02-38C7-4A6A-9CC6-4BCCA8B30102 -> AMD Ryzen™ 5 5600`
 
 将 `AMD Ryzen™ 5 5600` 修改为你想要的名称即可。
 
@@ -192,4 +188,3 @@ OpenCore 版本为 `1.0.2` ，BIOS 版本为 `7A37v1O7`
 - [OpenCore Configurator](https://mackie100projects.altervista.org/opencore-configurator/)
 - [OpenCore Auxiliary Tools](https://github.com/ic005k/QtOpenCoreConfig)
 - [OpenCore Legacy Patcher](https://github.com/dortania/OpenCore-Legacy-Patcher)
-
