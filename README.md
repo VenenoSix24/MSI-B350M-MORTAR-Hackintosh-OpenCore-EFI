@@ -1,78 +1,92 @@
 # 微星 B350M 迫击炮 黑苹果 OpenCore EFI
 
-## 介绍
+> **为微星 B350M 迫击炮主板打造的 macOS Sequoia 开箱即用型 EFI，适配 Ryzen 5000 系 CPU 与 Navi 2X 系显卡。**
 
-[![Static Badge](https://img.shields.io/badge/OpenCore-1.0.2-blue)](https://github.com/acidanthera/OpenCorePkg/releases) [![Static Badge](https://img.shields.io/badge/macOS-15-red)](https://www.apple.com.cn/macos/macos-sequoia/) ![GitHub last commit](https://img.shields.io/github/last-commit/VenenoSix24/MSI-B350M-MORTAR-Hackintosh-OpenCore1.0.2-EFI) ![GitHub License](https://img.shields.io/github/license/VenenoSix24/MSI-B350M-MORTAR-Hackintosh-OpenCore1.0.2-EFI) [![Static Badge](https://img.shields.io/badge/Find%20me-Blog-orange?link=blog.776624.xyz)](https://blog.776624.xyz/)
+## 简介
 
-### 前言
+本项目提供微星 B350M MORTAR 主板的 OpenCore EFI 配置，专为 AMD Ryzen 平台优化。EFI 基于 OpenCore `1.0.2` 版本构建，目标是为用户提供一个稳定、高效、功能完善的黑苹果体验，最高支持 `macOS Sequoia 15.6`。
 
-本 EFI 适用于 微星 B350M 迫击炮 主板用户，理论上采用 Ryzen 系 CPU 和 Navi 核心的 GPU 均可使用 ，其他配置根据实际情况稍微修改也可使用
+理论上，采用同代 Ryzen 处理器和 Navi 核心显卡的配置均可使用，其他硬件请根据实际情况自行修改。
 
-### 版本
+### 预览
 
-OpenCore 版本为 `1.0.2` ，BIOS 版本为 `7A37v1O7`
+- 关于本机
 
-机型为 `MacPro7,1` ，最高支持 `macOS Sequoia 15.4`
+![2025-08-13 23.16.11_compressed.png](https://s2.loli.net/2025/08/13/xZ5RYIHwJyMTSoe.png)
 
-### 关于本机
+- 桌面截图
 
-<img src="https://s2.loli.net/2024/10/22/CfnAZWq1t2KN7dP.jpg" alt="about.png" style="zoom:50%;" />
+![2025-08-13 23.31.16_compressed.png](https://s2.loli.net/2025/08/13/nANvzGVxZSTFyP5.png)
 
-## 配置
+## 功能状态
 
-|  硬件  | 型号                                   |
-| :----: | :------------------------------------- |
-|  主板  | 微星 B350M MORTAR                      |
-| 处理器 | AMD Ryzen™ 5 5600                      |
-|  显卡  | AMD Radeon RX 6750 GRE 12GB （蓝宝石） |
-|  内存  | 玖合 星舞 32G 3200MHz DDR4             |
-|  硬盘  | 朗科 SSD NV3000 256G                   |
+| 功能                     | 状态       | 备注                                                                      |
+| :----------------------- | ---------- | ------------------------------------------------------------------------- |
+| ✅**GPU 加速**           | `正常`     | Navi 核心显卡硬件加速与视频硬解 (H.264/HEVC) 均正常。                     |
+| ✅**板载声卡 / 网卡**    | `正常`     | 使用 `AppleALC` 与 `RealtekRTL8111` 驱动。                                |
+| ✅**App Store / iCloud** | `正常`     | 需正确生成并配置三码。                                                    |
+| ✅**HDMI 音视频输出.**   | `正常`     | 在显示器上即插即用。                                                      |
+| ⚠️**睡眠与唤醒**         | `需要配置` | 基础功能可用，但可能需要根据个人硬件情况定制 USB 端口映射以达到完美效果。 |
+| ⚠️**USB 端口**           | `需要配置` | 已提供基础 USB 映射，但强烈建议根据自己的机箱和使用习惯重新定制。         |
+| ❌**Apple Music / TV+**  | `无法使用` | 这是 AMD 平台常见的 DRM 问题，等待后续解决方案。                          |
+| ❔**蓝牙 / Wi-Fi**       | `未测试`   | 由于主板无无线网卡模块，暂时无法测试。                                    |
 
-## 实现功能
+## 硬件配置
 
-- [x] 声卡 (板载) / 网卡 (板载)
-- [x] 显卡正常驱动
-- [x] ~~USB 定制~~ (当前这版好像有点 bug，过两天修复)
-- [x] ~~可睡眠 可唤醒~~ (同上)
-- [x] 硬解 4K H.264 HEVC
-- [x] AppStore iCloud 正常登陆
-- [ ] Apple Music / Apple TV
-- [ ] 与蓝牙 WIFI 有关的功能暂未测试 （板载无网卡）
+| 硬件   | 型号                        |
+| :----- | :-------------------------- |
+| 主板   | 微星 B350M MORTAR           |
+| 处理器 | AMD Ryzen™ 5 5600           |
+| 显卡   | AMD Radeon RX 6750 GRE 12GB |
+| 内存   | 玖合 星舞 32G 3200MHz DDR4  |
 
-## BIOS 设置
+## ⚠️ 免责声明
 
-|      **选项**      |    **状态**     |
-| :----------------: | :-------------: |
-|     SATA Mode      |    选择 AHCI    |
-| Above 4G Decoding  | 禁用 / Disabled |
-| EHCI/XHCI Hand-off | 启用 / Enabled  |
-|        SVM         | 启用 / Enabled  |
-|        CSM         | 禁用 / Disabled |
-|    Secure Boot     | 禁用 / Disabled |
-|    Serial Port     | 禁用 / Disabled |
-|   Parallel Port    | 禁用 / Disabled |
+本项目仅为技术爱好者学习和研究之用，所有文件均来自网络。使用者需自行承担因使用此 EFI 配置所带来的任何风险，包括但不限于数据丢失、硬件损坏、法律纠纷等。本人（项目作者）不对任何可能产生的问题负责。
 
-如果开启 **Above 4G Decoding** ，**必须**把配置文件 `boot-args` 项中的 `npci=0x3000` 参数删除
+**在进行任何操作前，请务必备份你的所有重要数据！**
 
-推荐主板选择关闭，使用 `npci=0x3000` 参数，二选一即可。
+## 快速使用指南
 
-## 使用方法
+详细的安装过程请参考 OpenCore 官方文档或社区优秀教程。
 
-详细过程参考 **OpenCore 文档** **_[官方](https://dortania.github.io/OpenCore-Install-Guide/)_** **_[中文](https://sumingyd.github.io/OpenCore-Install-Guide/)_** / [**国光的黑苹果安装教程**](https://apple.sqlsec.com/) / **[精解 OpenCore - 黑果小兵](https://blog.daliansky.net/OpenCore-BootLoader.html)**
+1. **下载 EFI**
 
-1. 下载 EFI 文件
-2. 修改 BIOS 设置
-3. 修改 `config.plist` 文件
+   - 请前往本项目的 **[Releases 页面](https://github.com/VenenoSix24/MSI-B350M-MORTAR-Hackintosh-OpenCore1.0.2-EFI/releases)** 下载最新版本的 EFI 文件。
 
-   i. 修改 CPU 核心数
+2. **BIOS 设置**
 
-   - 在你的配置文件中转到 `Kernel -> Patch` 找到四个 `algrey - Force cpuid_cores_per_package` 补丁。
-   - 修改这些补丁以适配你的 CPU 核心。将这些补丁中的第一对更改为下**表**中的值。
-     - 例如，对于具有 6 核的 Ryzen 5 5600，三个修改后的补丁应如下所示：
-       - B8 **00** 0000 0000 -> B8 **06** 0000 0000
-       - BA **00** 0000 0000 -> BA **06** 0000 0000
-       - BA **00** 0000 0090 -> BA **06** 0000 0090
-       - BA **00** 0000 00 -> BA **06** 0000 00
+   - BIOS 版本参考: `7A37v1O7`
+
+   |      **选项**      |    **状态**     |
+   | :----------------: | :-------------: |
+   |     SATA Mode      |    选择 AHCI    |
+   | Above 4G Decoding  | 禁用 / Disabled |
+   | EHCI/XHCI Hand-off | 启用 / Enabled  |
+   |        SVM         | 启用 / Enabled  |
+   |        CSM         | 禁用 / Disabled |
+   |    Secure Boot     | 禁用 / Disabled |
+   |    Serial Port     | 禁用 / Disabled |
+   |   Parallel Port    | 禁用 / Disabled |
+
+   > **重要**：如果开启 **Above 4G Decoding**，**必须**把配置文件 `boot-args` 项中的 `npci=0x3000` 参数删除。或者主板中禁用该项，保留启动参数，二选一即可。
+
+3. **配置 config.plist**
+
+   - **i. 使用 Plist 编辑器打开 EFI 文件**
+
+     **[OCAuxiliaryTools](https://github.com/ic005k/OCAuxiliaryTools)**
+
+     **[OpenCore Configurator](https://mackie100projects.altervista.org/opencore-configurator/)**
+
+   - **ii. 修改 CPU 核心数**
+
+     - 在 `Kernel -> Patch` 中找到四个 `algrey - Force cpuid_cores_per_package` 补丁。
+     - 根据你的 CPU 物理核心数，参考下表修改补丁中的**十六进制值**。例如 6 核 `06`，8 核 `08`。
+     - `B8 00 0000 0000` -> `B8 06 0000 0000`
+     - `BA 00 0000 0000` -> `BA 06 0000 0000`
+     - `BA 00 0000 0090` -> `BA 06 0000 0090`
+     - `BA 00 0000 00` -> `BA 06 0000 00`
 
    | **CPU 核心** | **十六进制值** |
    | :----------: | :------------: |
@@ -84,109 +98,104 @@ OpenCore 版本为 `1.0.2` ，BIOS 版本为 `7A37v1O7`
    |    24 核     |      `18`      |
    |    32 核     |      `20`      |
 
-   ii. 生成三码，并校验 序列号 在官网是否存在
+   - **iii. 生成并替换三码**
+     - **此步骤对 iCloud、iMessage 等苹果服务至关重要，请勿使用 EFI 中预留的默认值！**
+     - 使用 [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS) 或者其他工具（[OCAuxiliaryTools](https://github.com/ic005k/OCAuxiliaryTools)、[OpenCore Configurator](https://mackie100projects.altervista.org/opencore-configurator/)），选择 `Generate SMBIOS`，机型选择 `MacPro7,1` 来生成你自己的序列号、主板序列号和 SmUUID。
+     - 前往苹果官网验证序列号的“无效性”，[进入官网](https://checkcoverage.apple.com/?locale=zh_CN) ，粘贴序列号，进行查询
+     - 将生成的值依次填入 `config.plist` 的 `PlatformInfo -> Generic` 路径下。
 
-   使用[GenSMBIOS](https://github.com/corpnewt/GenSMBIOS) 工具生成三码
+4. **开始安装**
 
-4. 按照正常流程继续引导即可
+   - 将配置好的 `EFI` 文件夹完整复制到 macOS 安装分区（安装 U 盘或硬盘 ESP 分区）中，替换掉原有的内容。
+   - 具体安装步骤请参考该 [**视频**](https://www.bilibili.com/video/BV1Ps421M7NZ) 的安装部分。
 
-## 进阶教程
+## 安装后调优
 
-### 1. 睡眠
+### 1. 修复睡眠
 
-首先，测试你的 睡眠 功能是否正常。如果正常，你可以跳过阅读此部分。
+如果你的系统无法正常睡眠或唤醒，通常是 USB 端口问题。请参考 **[国光的 USB 定制教程](https://apple.sqlsec.com/6-实用姿势/6-1/)** 来创建你自己的 USB 映射。若问题依旧，可参考 **[官方睡眠修复文档](https://dortania.github.io/OpenCore-Post-Install/universal/sleep.html)**。
 
-如果你有睡眠问题，请定制你的 USB 端口，定制方法 [**参考这里**](https://apple.sqlsec.com/6-%E5%AE%9E%E7%94%A8%E5%A7%BF%E5%8A%BF/6-1/)。
+### 2. 开启 HiDPI
 
-如果上述方法无效的话，请参考 [**这篇文章**](https://dortania.github.io/OpenCore-Post-Install/universal/sleep.html) 以修复睡眠。
+为了获得细腻显示效果，可以使用 **[one-key-hidpi](https://github.com/xzhih/one-key-hidpi)** 项目。 在终端中运行以下命令，按提示操作即可：
 
-### 2. 开启 HiDPi
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/xzhih/one-key-hidpi/master/hidpi.sh)"
+```
 
-使用 **[one-key-hidpi](https://github.com/xzhih/one-key-hidpi)** 项目即可。
+### 3. PAT 补丁切换
 
-1. 一键脚本（拥有良好的网络环境）
+本 EFI 默认启用 `Shaneee` 的 PAT 补丁以获得更好的 GPU 性能。如果你遇到 DP/HDMI 音频输出问题或使用的是 NVIDIA 显卡，可以切换到兼容性更好的 `Algrey` 补丁。
 
-   打开终端输入下方命令，即可开启 HiDPi：
-
-   ```
-   sh -c "$(curl -fsSL https://raw.githubusercontent.com/xzhih/one-key-hidpi/master/hidpi.sh)"
-   ```
-
-2. 本地文件
-
-   克隆 / 下载 **[one-key-hidpi](https://github.com/xzhih/one-key-hidpi)** 项目文件到本地后，解压，双击打开 `hidpi.command`
-
-之后根据实际情况，输入数字选择分辨率重启即可。如未生效自行去设置更改带有 **HiDPi** 的分辨率
-
-### 3. PAT 补丁
+- **路径**：`config.plist` -> `Kernel` -> `Patch`
+- **操作**：搜索 `mtrr_update_action`，禁用 Shaneee 的补丁并启用 Algrey 的。**切勿同时启用两个！**
 
 |       **Shaneee's**        |      **Algrey's**      |
 | :------------------------: | :--------------------: |
-|      更好的 GPU 性能       |    更差的 GPU 性能     |
+|      更好的 GPU 性能       |   标准性能/兼容模式    |
 |  可能不适用于 NVIDIA GPU   |      兼容所有 GPU      |
 | HDMI / DP 音频可能无法工作 | HDMI / DP 音频正常工作 |
-|          默认启用          |        默认禁用        |
+|       ✅**默认启用**       |     ❌**默认禁用**     |
 
-本 EFI 默认启用 `Shaneee` 的 `macOS Sequoia 15` PAT 补丁，以发挥更好的 GPU 性能，减少日常使用的掉帧现象。
+### 4. Adobe 及 MKL 程序修复
 
-如需切换请打开 `config.plist` 转到 `Kernel` 中的 `Patch 补丁` 搜索 `mtrr_update_action` 启用/禁用相关 PAT 。
+部分 Adobe 应用和依赖 Intel MKL 库的程序在 AMD 平台上无法正常运行。
 
-不要同时开启两个 PAT 补丁，因为这样会不起作用。
+- **Adobe 修复**：运行 **[此修复脚本](https://github.com/VenenoSix24/MSI-B350M-MORTAR-Hackintosh-OpenCore-EFI/tree/main/Resource/adobe_patch.sh)**。
+- **MKL 修复**：运行 **[此修复脚本](https://github.com/VenenoSix24/MSI-B350M-MORTAR-Hackintosh-OpenCore-EFI/tree/main/Resource/ryzen_patch.sh)**。
+- 运行后**重启**查看效果。
 
-### 4. 如何使用 .sh 文件
+### 5. 修改 CPU 处理器名称
 
-后续两个步骤会用到 shell 命令文件，请参考 **[方法](https://www.jianshu.com/p/e777b6825df5)**
+- **路径**：`config.plist` -> `NVRAM` -> `4D1FDA02-38C7-4A6A-9CC6-4BCCA8B30102`
+- **操作**：找到 `cpu-name` 项，将其值 `AMD Ryzen™ 5 5600` 修改为你想要的名称。
+- **生效**：修改后**重启并重置 NVRAM**，修改的处理器名称即可显示。
 
-### 5. Adobe 修复
+## 如何更新 EFI
 
-由于缺少 intel_fast_memset 指令，Adobe 应用程序在 AMD 黑苹果上不能正常使用。
+1. **备份**你当前正在使用的 EFI 文件夹，尤其是你的 `config.plist` 文件。
+2. 下载最新的 Release 版本。
+3. 使用 `config.plist` 对比工具（如 `OCAuxiliaryTools` 的对比功能）将你旧 `config.plist` 中的个性化设置（如三码、CPU 核心数等）迁移到新版的 `config.plist` 中。
+4. 替换整个 EFI 文件夹。
+5. 重启并重置 NVRAM。
 
-你可以运行 **[这个脚本](https://github.com/mikigal/ryzen-hackintosh/blob/master/Resources/adobe_patch.sh)** 来解决，重启系统以使之生效。
+## FAQ / 常见问题解答
 
-### 6. MKL 补丁
+**Q1: 安装后没有声音怎么办?**
+A:
 
-有些 macOS 应用程序使用 MKL - 数学核心函数库。但它无法在 AMD CPU 上原生运行
+1. 检查 `config.plist` -> `NVRAM` -> `boot-args` 中是否包含 `alcid=xx` 参数。对于本主板，`alcid=1` 或 `alcid=7` 通常是有效的。
+2. 前往 `系统设置 -> 声音 -> 输出`，确认输出设备是否已正确选择。
 
-所以我们需要用 **[这个脚本](https://github.com/mikigal/ryzen-hackintosh/blob/master/Resources/ryzen_patch.sh)** 来修补它。
+**Q2: 更新了 Kexts 或者 OpenCore 后无法启动了?**
+A: 永远记得在做任何修改前**备份你能够正常工作的 EFI**。无法启动时，请使用备份的 EFI 恢复系统，然后仔细排查新旧 `config.plist` 的差异，并确保所有 Kexts、驱动和 OpenCore 版本相互兼容。
 
-### 7. 修改 CPU 名称
+## 更新日志
 
-本 EFI 已添加名称修改参数，可直接修改，重启在 OpenCore 引导界面 `Reset NVRAM` 后生效。
+**v2025.08.13**
 
-打开配置文件转到 `NVRAM -> 4D1FDA02-38C7-4A6A-9CC6-4BCCA8B30102 -> AMD Ryzen™ 5 5600`
+- 当前 OpenCore 版本: v1.0.2
+- 系统支持：最高支持到 `macOS Sequoia 15.6`
+- **注意:** 默认添加 `npci=0x3000`参数，请关闭 `Above 4G Decoding`选项（或删除 `npci=0x3000`参数）
 
-将 `AMD Ryzen™ 5 5600` 修改为你想要的名称即可。
+**v2025.05.21**
 
-## 预览
+- 删除不必要的文件
+- 更新 Lilu 和 NootRX
+- 调整 config.plist 配置
+- 更新 README.md 文档
 
-![desktop.png](https://s2.loli.net/2025/05/21/peYUHnZcBdTbR7L.jpg)
+**v2024.10.21**
 
-## 所需资源
+- OpenCore 升级至 1.0.2 版本
+- 同步更新所有 Kexts 至最新版
+- 针对 macOS Sequoia 15 进行初步适配
 
-### Plist 文件编辑工具
+## 鸣谢与资源
 
-- [ProperTree](https://github.com/corpnewt/ProperTree)
-- [OCAuxiliaryTools](https://github.com/ic005k/OCAuxiliaryTools)
-- [OpenCore Configurator](https://mackie100projects.altervista.org/opencore-configurator/)
+> 感谢所有为 Hackintosh 社区做出贡献的开发者和先行者！
 
-### 三码生成工具
-
-- **[GenSMBIOS](https://github.com/corpnewt/GenSMBIOS)**
-
-## 鸣谢
-
-> 非常感谢你们的付出！
-
-- [国光酱](https://apple.sqlsec.com/)
-- [黑果小兵](https://blog.daliansky.net/)
-- [OpenCore](https://github.com/acidanthera/OpenCorePkg)
-- [Hackintool](https://github.com/benbaker76/Hackintool)
-- [ProperTree](https://github.com/corpnewt/ProperTree)
-- [AMD_Vanilla](https://github.com/AMD-OSX/AMD_Vanilla)
-- [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS)
-- [one-key-hidpi](https://github.com/xzhih/one-key-hidpi)
-- [ryzen-hackintosh](https://github.com/mikigal/ryzen-hackintosh)
-- [OCAuxiliaryTools](https://github.com/ic005k/OCAuxiliaryTools)
-- [OpenCore Configurator](https://mackie100projects.altervista.org/opencore-configurator/)
-- [OpenCore Auxiliary Tools](https://github.com/ic005k/QtOpenCoreConfig)
-- [OpenCore Legacy Patcher](https://github.com/dortania/OpenCore-Legacy-Patcher)
+- **教程与社区**: [国光酱](https://apple.sqlsec.com/), [黑果小兵](https://blog.daliansky.net/), [Dortania&#39;s OpenCore Install Guide](https://dortania.github.io/OpenCore-Install-Guide/)
+- **核心项目**: [OpenCorePkg](https://github.com/acidanthera/OpenCorePkg), [AMD_Vanilla](https://github.com/AMD-OSX/AMD_Vanilla)
+- **工具**: [ProperTree](https://github.com/corpnewt/ProperTree), [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS), [OCAuxiliaryTools](https://github.com/ic005k/OCAuxiliaryTools), [OpenCore Configurator](https://mackie100projects.altervista.org/opencore-configurator/)
+- **补丁与脚本**: [ryzen-hackintosh](https://github.com/mikigal/ryzen-hackintosh), [one-key-hidpi](https://github.com/xzhih/one-key-hidpi)
