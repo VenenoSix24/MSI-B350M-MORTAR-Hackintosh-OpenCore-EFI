@@ -1,6 +1,6 @@
 # 微星 B350M 迫击炮 黑苹果 OpenCore EFI
 
-> **为微星 B350M 迫击炮主板打造的 macOS Sequoia 开箱即用型 EFI**。
+> **为微星 B350M 迫击炮主板打造的 macOS 开箱即用型 EFI**。
 >
 > **适配 Ryzen 5000 系 CPU 与 Navi 2X 系显卡。**
 >
@@ -8,7 +8,7 @@
 
 ## 简介
 
-本项目提供微星 B350M MORTAR 主板的 OpenCore EFI 配置，专为 AMD Ryzen 平台优化。EFI 基于 OpenCore `1.0.5` 版本构建，目标是为用户提供一个稳定、高效、功能完善的黑苹果体验，最高支持 `macOS Sequoia 15.7`。
+本项目提供微星 B350M MORTAR 主板的 OpenCore EFI 配置，专为 AMD Ryzen 平台优化。EFI 基于 OpenCore `1.0.6` 版本构建，目标是为用户提供一个稳定、高效、功能完善的黑苹果体验，最高支持 `macOS Tahoe 26.2 RC`。
 
 理论上，采用同代 Ryzen 处理器和 Navi 核心显卡的配置均可使用，其他硬件请根据实际情况自行修改。
 
@@ -32,7 +32,7 @@
 | ✅**HDMI 音视频输出**   | `正常`     | 在显示器上即插即用。                                                      |
 | ✅**睡眠与唤醒**        | `正常` | 正常唤醒，如果异常请重新定制 USB 端口或参考后文 `修复睡眠`。 |
 | ✅**USB 端口**          | `正常` | 已提供基础 USB 映射，但建议根据自己的机箱和使用习惯重新定制。         |
-| ✅**Apple Music** | `半正常` | 开启无损音质会导致无声音输出，等待后续解决方案。           |
+| ✅**Apple Music** | `半正常` | `15.7` 开启无损音质会导致无声音输出，**`OS26` 不可用**。 |
 | ❌**Apple TV+**          | `无法使用` | 这是 AMD 平台常见的 DRM 问题，等待后续解决方案。             |
 | ❔**蓝牙 / Wi-Fi** | `未测试` | 由于主板无无线网卡模块，暂时无法测试。 |
 
@@ -76,7 +76,7 @@
 
    > **重要**：如果开启 **Above 4G Decoding**，**必须**把配置文件 `boot-args` 项中的 `npci=0x3000` 参数删除。或者主板中禁用该项，保留启动参数，二选一即可。
    >
-   > **注意：**经测试，开启 **Above 4G Decoding** 并删除 `npci=0x3000` 参数后，如果 EFI 设置 **ResizeAppleGpuBars** 的值为 **0** ，睡眠唤醒会导致设备重启，目前原因不明。
+   > **注意：**经测试，开启 **Above 4G Decoding** 并删除 `npci=0x3000` 参数后，如果 EFI 设置 **ResizeAppleGpuBars** 的值为 `0` ，睡眠唤醒会导致设备重启，目前原因不明。
 
 3. **配置 config.plist**
 
@@ -149,7 +149,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/xzhih/one-key-hidpi/master
 部分 Adobe 应用和依赖 Intel MKL 库的程序在 AMD 平台上无法正常运行。
 
 - **Adobe 修复**：运行 **[此修复脚本](https://github.com/VenenoSix24/MSI-B350M-MORTAR-Hackintosh-OpenCore-EFI/tree/main/Resource/adobe_patch.sh)**。
-- **MKL 修复**：运行 **[此修复脚本](https://github.com/VenenoSix24/MSI-B350M-MORTAR-Hackintosh-OpenCore-EFI/tree/main/Resource/ryzen_patch.sh)**。
+- **MKL库 修复**：运行 **[此修复脚本](https://github.com/VenenoSix24/MSI-B350M-MORTAR-Hackintosh-OpenCore-EFI/tree/main/Resource/ryzen_patch.sh)**。
 - 运行后**重启**查看效果。
 
 ### 5. 修改 CPU 处理器名称
@@ -158,21 +158,42 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/xzhih/one-key-hidpi/master
 - **操作**：找到 `cpu-name` 项，将其值 `AMD Ryzen™ 5 5600` 修改为你想要的名称。
 - **生效**：修改后**重启并重置 NVRAM**，修改的处理器名称即可显示。
 
+### 6. 如何关闭 SIP
+
+1、删除 `NVRAM` -> `7C436110-AB2A-4BBB-A880-FE41995C9F82` 下的 `csr-active-config` 。
+2、`UEFI` -> `Drivers` 添加 `ToggleSipEntry.efi`，`Arguments` 填 `csr-active-config 0xA7F`，勾选 `Enabled`，不勾选 `LoadEarly`。
+3、重启，在 OpenCore 引导菜单界面**按空格**，选择 `Toggle SIP (Enabled)` 回车，标题变成 **Toggle SIP (Disabled)** 后就关闭了。
+
+### 7. 升级至 macOS 26 后需要进行的操作
+
+- **文件保险箱（FileVault）已开启：**
+  1. 终端输入 `while true; do clear; diskutil apfs list | grep crypt; sleep 5; done` 回车。
+  2. 终端会显示加密解密进度，如果没有进度，等到 **只显示** `Encripted: No` 时。
+  3. 打开 **设置** -> **隐私与安全性** -> **文件保险箱** -> **关闭**，关闭后可能还显示开启，先不用管。
+  4. 此时终端会显示解密进度： `Decryption Progress: 50.0% (Unlocked)`，耗时较长。
+  5. 等待**终端没有任何输出**后，再去执行一遍 `步骤 3` ，检查是否已经关闭。
+  6. 使用 **OpenCore-Patcher 3.0** 打补丁，**修复网卡、声卡**。**[点击下载](https://nightly.link/lzhoang2801/OpenCore-Legacy-Patcher/workflows/build-app-wxpython/tahoe-patchset/OpenCore-Patcher.pkg.zip)**
+- **文件保险箱（FileVault）未开启：**
+  1. 使用 **OpenCore-Patcher 3.0** 打补丁，**修复网卡、声卡**。**[点击下载](https://nightly.link/lzhoang2801/OpenCore-Legacy-Patcher/workflows/build-app-wxpython/tahoe-patchset/OpenCore-Patcher.pkg.zip)**
+
 ## 如何更新 EFI
 
 1. **备份**你当前正在使用的 EFI 文件夹，尤其是你的 `config.plist` 文件。
 2. 下载最新的 Release 版本。
 3. 使用 `config.plist` 对比工具（如 `OCAuxiliaryTools` 的对比功能）将你旧 `config.plist` 中的个性化设置（如三码、CPU 核心数等）迁移到新版的 `config.plist` 中。
 4. 替换整个 EFI 文件夹。
-5. 重启并重置 NVRAM。
+5. **重启并重置 NVRAM**。
 
 ## FAQ / 常见问题解答
 
-**Q1: 安装后没有声音怎么办?**
+**Q1: 安装后没有声音怎么办? / 安装后声音输出不对劲怎么办？**
 
 A:
 
-1. 检查 `config.plist` -> `NVRAM` -> `boot-args` 中是否包含 `alcid=xx` 参数。对于本主板，`alcid=1` 或 `alcid=7` 通常是有效的。
+1. 检查 `config.plist` -> `NVRAM` -> `boot-args` 中是否包含 `alcid=xx` 参数。对于本主板，`alcid=1` 或 `alcid=7` 通常是有效的。输出不对劲请尝试更换 `alcid` 。
+
+   > 注意： **v2025.12.12 版本** 的 `alcid 参数` 移动至 `DP 面板` -> `PciRoot(0x0)/Pci(0x8,0x1)/Pci(0x0,0x4)` 
+
 2. 前往 `系统设置 -> 声音 -> 输出`，确认输出设备是否已正确选择。
 
 **Q2: 更新了 Kexts 或者 OpenCore 后无法启动了?**
@@ -180,6 +201,16 @@ A:
 A: 永远记得在做任何修改前**备份你能够正常工作的 EFI**。无法启动时，请使用备份的 EFI 恢复系统，然后仔细排查新旧 `config.plist` 的差异，并确保所有 Kexts、驱动和 OpenCore 版本相互兼容。
 
 ## 更新日志
+
+**v2025.12.12** 
+
+- **重要：** 系统支持：支持至 `macOS Tahoe 26.2 RC`
+
+- 更新 OpenCore 版本至: v1.0.6
+- 默认启用图形化 OC 引导界面，主题位于 `Resources` 文件夹下
+- 同步 Kexts 至最新版
+
+> **升级 macOS 26 Tahoe 必看：** *7. 升级至 macOS 26 后需要进行的操作*
 
 **v2025.08.14**
 
