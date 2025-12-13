@@ -1622,7 +1622,7 @@
                 </dict>
                 <dict>
                     <key>Arguments</key>
-                    <string>csr-active-config 0xA7F</string>
+                    <string></string>
                     <key>Comment</key>
                     <string></string>
                     <key>Enabled</key>

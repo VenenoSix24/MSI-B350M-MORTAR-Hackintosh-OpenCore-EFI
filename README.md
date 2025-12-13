@@ -12,6 +12,8 @@
 
 理论上，采用同代 Ryzen 处理器和 Navi 核心显卡的配置均可使用，其他硬件请根据实际情况自行修改。
 
+> **有什么问题也可以提 Issue 一起讨论，看到会回复的。**
+
 ### 预览
 
 - 关于本机
@@ -122,6 +124,8 @@
 
 如果你的系统无法正常睡眠或唤醒，通常是 USB 端口问题。请参考 **[国光的 USB 定制教程](https://apple.sqlsec.com/6-实用姿势/6-1/)** 来创建你自己的 USB 映射。若问题依旧，可参考 **[官方睡眠修复文档](https://dortania.github.io/OpenCore-Post-Install/universal/sleep.html)**。
 
+> macOS 26 Tahoe 可参考这个视频：**[Bilibili](https://www.bilibili.com/video/BV1VrywBuEiP)**
+
 ### 2. 开启 HiDPI
 
 为了获得细腻显示效果，可以使用 **[one-key-hidpi](https://github.com/xzhih/one-key-hidpi)** 项目。 在终端中运行以下命令，按提示操作即可：
@@ -160,9 +164,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/xzhih/one-key-hidpi/master
 
 ### 6. 如何关闭 SIP
 
-1、删除 `NVRAM` -> `7C436110-AB2A-4BBB-A880-FE41995C9F82` 下的 `csr-active-config` 。
-2、`UEFI` -> `Drivers` 添加 `ToggleSipEntry.efi`，`Arguments` 填 `csr-active-config 0xA7F`，勾选 `Enabled`，不勾选 `LoadEarly`。
-3、重启，在 OpenCore 引导菜单界面**按空格**，选择 `Toggle SIP (Enabled)` 回车，标题变成 **Toggle SIP (Disabled)** 后就关闭了。
+网上搜一下吧，教程挺多的，方法也很多，我就不过多赘述了。
 
 ### 7. 升级至 macOS 26 后需要进行的操作
 
@@ -210,7 +212,7 @@ A: 永远记得在做任何修改前**备份你能够正常工作的 EFI**。无
 - 默认启用图形化 OC 引导界面，主题位于 `Resources` 文件夹下
 - 同步 Kexts 至最新版
 
-> **升级 macOS 26 Tahoe 必看：** *7. 升级至 macOS 26 后需要进行的操作*
+> **升级 macOS 26 Tahoe 必看：** [*7. 升级至 macOS 26 后需要进行的操作*](https://github.com/VenenoSix24/MSI-B350M-MORTAR-Hackintosh-OpenCore-EFI?tab=readme-ov-file#7-%E5%8D%87%E7%BA%A7%E8%87%B3-macos-26-%E5%90%8E%E9%9C%80%E8%A6%81%E8%BF%9B%E8%A1%8C%E7%9A%84%E6%93%8D%E4%BD%9C) 
 
 **v2025.08.14**
 
